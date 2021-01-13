@@ -29,6 +29,7 @@ while True:
     ip = get_ip_address()
     if ip:
         printToDisplay(get_ip_address())
+        print(ip)
         break
     else:
         sleep(5)
