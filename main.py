@@ -28,8 +28,9 @@ def printToDisplay(string):
 while True:
     ip = get_ip_address()
     if ip:
-        printToDisplay(get_ip_address())
+        printToDisplay(ip)
         print(ip)
         break
     else:
+        printToDisplay('Getting IP')
         sleep(5)
