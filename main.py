@@ -26,11 +26,16 @@ def printToDisplay(string):
     epd.display(epd.getbuffer(HBlackImage))
 
 while True:
-    ip = get_ip_address()
-    if ip:
-        printToDisplay(ip)
-        print(ip)
-        break
-    else:
+    ip = ''
+    try:
+        ip = get_ip_address()
+        if ip:
+            printToDisplay(ip)
+            print(ip)
+            break
+        else:
+            printToDisplay('Getting IP')
+            sleep(5)
+    except:
         printToDisplay('Getting IP')
         sleep(5)
