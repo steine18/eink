@@ -1,5 +1,5 @@
 import os
-import time
+from time import sleep
 import socket
 from waveshare_epd import epd2in7
 from PIL import Image, ImageDraw, ImageFont
@@ -25,4 +25,9 @@ def printToDisplay(string):
     draw.text((25, 65), string, font=font, fill=0)
     epd.display(epd.getbuffer(HBlackImage))
 
-printToDisplay(get_ip_address())
+while True:
+    ip = get_ip_address()
+    if ip:
+        printToDisplay(get_ip_address())
+    else:
+        sleep(5)
