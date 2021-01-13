@@ -1,7 +1,7 @@
 import os
 import time
 import socket
-from lib.waveshare_epd import epd2in7
+from waveshare_epd import epd2in7
 from PIL import Image, ImageDraw, ImageFont
 from gpiozero import Button
 
