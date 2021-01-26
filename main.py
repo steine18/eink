@@ -3,6 +3,7 @@ from helpers import *
 from datetime import datetime, timedelta
 from time import sleep
 from waveshare_epd import epd2in7
+from PIL import Image, ImageDraw, ImageFont
 from gpiozero import Button
 
 date_format = '%Y-%m-%d %H:%M'
