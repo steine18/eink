@@ -19,6 +19,12 @@ btn1 = Button(6)
 btn2 = Button(13)
 btn3 = Button(19)
 
+def printToDisplay(string):
+    HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
+    draw = ImageDraw.Draw(HBlackImage)  # Create draw object and pass in the image layer we want to work with (HBlackImage)
+    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf',30)  # Create our font, passing in the font file and font size
+    draw.text((25, 65), string, font=font, fill=0)
+    epd.display(epd.getbuffer(HBlackImage))
 
 def bp0():
     global NEXT_SCREEN
