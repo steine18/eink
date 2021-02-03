@@ -20,12 +20,6 @@ btn1 = Button(6)
 btn2 = Button(13)
 btn3 = Button(19)
 
-def printToDisplay(string):
-    HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
-    draw = ImageDraw.Draw(HBlackImage)  # Create draw object and pass in the image layer we want to work with (HBlackImage)
-    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf',30)  # Create our font, passing in the font file and font size
-    draw.text((25, 65), string, font=font, fill=0)
-    epd.display(epd.getbuffer(HBlackImage))
 
 def bp0():
     global NEXT_SCREEN
@@ -69,19 +63,18 @@ while True:
         try:
             ip = get_ip_address()
             if ip:
-                printToDisplay(ip)
+                printToDisplay(ip, epd)
                 print(ip)
                 # break
                 REFRESH_TIME = datetime.now() + timedelta(minutes=60)
         except:
-            printToDisplay('Getting IP')
+            printToDisplay('Getting IP', epd)
             sleep(5)
     elif CURRENT_SCREEN == 1 and REFRESH_TIME < datetime.now():
-        print(datetime.now().strftime(date_format + ':%S'))
-        printToDisplay(datetime.now().strftime(date_format))
+        print_main(epd)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
     elif CURRENT_SCREEN == 2 and REFRESH_TIME < datetime.now():
-        printToDisplay(datetime.now().strftime(date_format))
+        printToDisplay(datetime.now().strftime(date_format), epd)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
         print(datetime.now().strftime(date_format + ':%S'))
     elif CURRENT_SCREEN == 3 and REFRESH_TIME is not None:
