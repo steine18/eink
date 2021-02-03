@@ -21,7 +21,7 @@ def get_text_dimensions(text, font, font_size):
 
 def center_text_offset(text, font, font_size):
     (width, height), (offset_x, offset_y) = get_text_dimensions(text, font, font_size)
-    return (epd2in7.EPD_WIDTH - width)/2, height
+    return (epd2in7.EPD_WIDTH - width), height
 
 def printToDisplay(string, epd, font_size =10):
     x_offset = 0
@@ -40,9 +40,9 @@ def print_main(epd):
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf', font_size)
     time_text = datetime.now().strftime(date_format)
     x_offset, height = center_text_offset(time_text, font, font_size)
-    get_text_dimensions(time_text, font, font_size)
-    draw.text((x_offset,y_offset), time_text, font=font, fill=0)
+    draw.text((64 ,y_offset), time_text, font=font, fill=0)
     y_offset += height
     epd.display(epd.getbuffer(HBlackImage))
+
 
 
