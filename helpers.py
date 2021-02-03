@@ -39,7 +39,7 @@ def print_main(epd):
     font_size=20
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf', font_size)
     time_text = datetime.now().strftime(date_format)
-    x_offset, height = center_text_offset(text, font, font_size)
+    x_offset, height = center_text_offset(time_text, font, font_size)
     get_text_dimensions(time_text, font, font_size)
     draw.text((x_offset,y_offset), time_text, font=font, fill=0)
     y_offset += height
