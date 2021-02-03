@@ -4,6 +4,8 @@ from datetime import datetime
 import textwrap
 import socket
 
+date_format = '%Y-%m-%d %H:%M'
+
 def get_ip_address():
     ip_address = ''
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
