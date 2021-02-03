@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+from waveshare_epd import epd2in7
 from datetime import datetime
 import textwrap
 import socket
