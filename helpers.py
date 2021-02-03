@@ -26,8 +26,6 @@ def printToDisplay(string, epd, font_size =10):
     HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
     draw = ImageDraw.Draw(HBlackImage)  # Create draw object and pass in the image layer we want to work with (HBlackImage)
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf', font_size)  # Create our font, passing in the font file and font size
-    text = textwrap.wrap(string)
-    center_text_offset(text, font, font_size)
     draw.text((0, x_offset), string, font=font, fill=0)
     epd.display(epd.getbuffer(HBlackImage))
 
