@@ -5,6 +5,7 @@ from time import sleep
 from waveshare_epd import epd2in7
 from PIL import Image, ImageDraw, ImageFont
 from gpiozero import Button
+from usgs_api import southwest
 
 date_format = '%Y-%m-%d %H:%M'
 
@@ -19,6 +20,8 @@ btn0 = Button(5)
 btn1 = Button(6)
 btn2 = Button(13)
 btn3 = Button(19)
+
+
 
 
 def bp0():
@@ -74,9 +77,9 @@ while True:
         print_main(epd)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
     elif CURRENT_SCREEN == 2 and REFRESH_TIME < datetime.now():
-        printToDisplay(datetime.now().strftime(date_format), epd)
+        coins = get_coin_prices()
+        print_crypto(coins)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
-        print(datetime.now().strftime(date_format + ':%S'))
     elif CURRENT_SCREEN == 3 and REFRESH_TIME is not None:
         epd.Clear(0xff)
         REFRESH_TIME = None

@@ -8,9 +8,14 @@ date_format = '%Y-%m-%dT%H:%M:%S.%f%z'
 local_tz = strftime('%z', gmtime())
 local_tz = pytz.timezone('US/Pacific')
 
-southwest = ['10251290', '10251300', '10251330',
-             '10251335', '355906115492601', '360956115432801',
-             '362727116013501',]
+southwest = {'10251290':{},
+             '10251300':{},
+             '10251330':{},
+             '10251335':{},
+             '355906115492601':{},
+             '360956115432801':{},
+             '362727116013501':{'name':'Kiup'},
+             }
 
 needs_work = ['362529116171100', '362727116013502'] #Devils hole well, kiup precip
 
@@ -32,6 +37,12 @@ def get_time(sites):
     s = [time_since_last(get_most_recent_value(get_site_data(site).json())) for site in sites]
     return s
 
-df = get_site_data(site)
+df = [get_most_recent_value(get_site_data(site).json()) for site in southwest]
+
+for site in southwest:
+    ld = get_most_recent_value(get_site_data(site).json())
+    print((datetime.now(local_tz) - ld).seconds/ 60)
+
+
 ld = get_most_recent_value(df.json())
-(datetime.now(local_tz) - list(set(ld))[0]).seconds / (60*60)
+(datetime.now(local_tz) - list(set(ld))[0]).seconds) / (60*60)
