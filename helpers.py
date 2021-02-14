@@ -48,7 +48,7 @@ def print_main(epd):
 
     epd.display(epd.getbuffer(HBlackImage))
 
-def print_usgs(epd)
+def print_usgs(epd):
     y_offset = 0
     HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
     draw = ImageDraw.Draw(
