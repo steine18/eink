@@ -78,7 +78,7 @@ while True:
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
     elif CURRENT_SCREEN == 2 and REFRESH_TIME < datetime.now():
         coins = get_coin_prices()
-        print_crypto(coins)
+        print_crypto(coins, epd)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
     elif CURRENT_SCREEN == 3 and REFRESH_TIME is not None:
         epd.Clear(0xff)
