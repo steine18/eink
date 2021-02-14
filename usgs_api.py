@@ -42,7 +42,3 @@ df = [get_most_recent_value(get_site_data(site).json()) for site in southwest]
 for site in southwest:
     ld = get_most_recent_value(get_site_data(site).json())
     print((datetime.now(local_tz) - ld).seconds/ 60)
-
-
-ld = get_most_recent_value(df.json())
-(datetime.now(local_tz) - list(set(ld))[0]).seconds) / (60*60)
