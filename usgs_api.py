@@ -8,16 +8,16 @@ date_format = '%Y-%m-%dT%H:%M:%S.%f%z'
 local_tz = strftime('%z', gmtime())
 local_tz = pytz.timezone('US/Pacific')
 
-southwest = {'10251290':{},
-             '10251300':{},
-             '10251330':{},
-             '10251335':{},
-             '355906115492601':{},
-             '360956115432801':{},
-             '362727116013501':{'name':'Kiup'},
+southwest = {'10251290':{'name': 'Borehole'},
+             '10251300':{'name': 'Tecopa'},
+             '10251330':{'name': 'China Ranch'},
+             '10251335':{'name': 'Willow'},
+             '355906115492601':{'name': 'Stump'},
+             '360956115432801':{'name': 'Kiup'},
+             '362727116013501':{'name':'Grapevine'},
              }
 
-needs_work = ['362529116171100', '362727116013502'] #Devils hole well, kiup precip
+needs_work = ['362529116171100', '362727116013502'] #Devils hole well, Grapevine precip
 
 sites=['094196784', '094196783']
 
@@ -37,8 +37,9 @@ def get_time(sites):
     s = [time_since_last(get_most_recent_value(get_site_data(site).json())) for site in sites]
     return s
 
-df = [get_most_recent_value(get_site_data(site).json()) for site in southwest]
+def update_sites(sites):
+    for site in sites:
+        ld = get_most_recent_value(get_site_data(site).json())
+        sites[site]['minutes'] = (datetime.now(local_tz) - ld).seconds / 60
+    return sites
 
-for site in southwest:
-    ld = get_most_recent_value(get_site_data(site).json())
-    print((datetime.now(local_tz) - ld).seconds/ 60)

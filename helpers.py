@@ -26,7 +26,7 @@ def center_text_offset(text, font, font_size):
     (width, height), (offset_x, offset_y) = get_text_dimensions(text, font, font_size)
     return (epd2in7.EPD_WIDTH - width), height
 
-def printToDisplay(string, epd, font_size =10):
+def printToDisplay(string, epd, font_size =20):
     x_offset = 0
     HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
     draw = ImageDraw.Draw(HBlackImage)  # Create draw object and pass in the image layer we want to work with (HBlackImage)
@@ -48,7 +48,7 @@ def print_main(epd):
 
     epd.display(epd.getbuffer(HBlackImage))
 
-def print_usgs(epd):
+def print_usgs(sites, epd):
     y_offset = 0
     HBlackImage = Image.new('1', (epd2in7.EPD_HEIGHT, epd2in7.EPD_WIDTH), 255)
     draw = ImageDraw.Draw(
@@ -60,13 +60,13 @@ def print_usgs(epd):
     draw.text((x_offset * 2, y_offset), time_text, font=font, fill=0)
     y_offset += height + 5
     draw.line((0, y_offset, HBlackImage.size[0], y_offset), fill=0, width=3)
-
-    for site in southwest:
-        ld = get_most_recent_value(get_site_data(site).json())
-        ld_min = ((datetime.now(local_tz) - ld).seconds / 60)
-        draw.text((3, y_offset), site['name'], font=font, fill=0)
-
-
+    sites =  dict(sorted(sites.items(), key=lambda item: item[1]['minutes'], reverse=True))
+    for site in sites:
+        site_text = f"{str(sites[site]['name'])} - {round(sites[site]['minutes'])}"
+        print(site_text)
+        draw.text((5, y_offset), site_text, font=font, fill=0)
+        y_offset += 20
+        draw.line((0, y_offset, HBlackImage.size[0], y_offset), fill=0, width=3)
     epd.display(epd.getbuffer(HBlackImage))
 
 def print_crypto(coins, epd):

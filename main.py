@@ -5,7 +5,7 @@ from time import sleep
 from waveshare_epd import epd2in7
 from PIL import Image, ImageDraw, ImageFont
 from gpiozero import Button
-from usgs_api import southwest
+from usgs_api import *
 
 date_format = '%Y-%m-%d %H:%M'
 
@@ -74,7 +74,8 @@ while True:
             printToDisplay('Getting IP', epd)
             sleep(5)
     elif CURRENT_SCREEN == 1 and REFRESH_TIME < datetime.now():
-        print_main(epd)
+        sites = update_sites(southwest)
+        print_usgs(sites, epd)
         REFRESH_TIME = datetime.strptime(datetime.now().strftime(date_format), date_format) + timedelta(minutes=1)
     elif CURRENT_SCREEN == 2 and REFRESH_TIME < datetime.now():
         coins = get_coin_prices()
